@@ -20,6 +20,7 @@ contract AccessControl {
     // 判断用户数组是否包含某用户 这是一个工具方法，判断用户集合是否包含某用户
     function isAllowed(address user, address[] storage allowedUsers)
         private
+        view
         returns (bool)
     {
         for (uint256 i = 0; i < allowedUsers.length; i++) {
