@@ -2,7 +2,7 @@
 pragma solidity >=0.4.0;
 
 // 投票合约
-// 我觉得这个合约逻辑挺混乱的
+// tips: 我觉得这个合约逻辑挺混乱的
 // 问题在于委托 如果没委托，自己投自己的票那么 weight 和 count 没问题
 // 如果委托了别人，别人投票了，直接把权重加到所投的提案上，如果没投票就把权重加到被委托人的权重上，关于 weight 记录的数据混乱不清
 contract Ballot {
@@ -30,7 +30,7 @@ contract Ballot {
 
         // voters[chairperson].weight = 1; // 主持人有一票 为啥主持人也需要一票？不给
 
-        // 长度判断要不要？实际上作为主持人部署合约时应该会检查，太多的话出错了给自己找事儿
+        // tips 长度判断要不要？实际上作为主持人部署合约时应该会检查，太多的话出错了给自己找事儿
         // require(proposalNames.length < 2 ** 256 - 1, "proposals are to many");
         require(proposalNames.length < 256, "proposals are to many"); // 限制长度
         require(proposalNames.length > 0, "proposals is empty"); // 限制长度
@@ -101,7 +101,7 @@ contract Ballot {
         for (uint256 p = 0; p < proposals.length; p++) {
             if (proposals[p].count > winningCount) {
                 // 如果当前提案的票数多 就记录下来
-                //  这里用大于 万一等于了怎么办？
+                // tips 这里用大于 万一等于了怎么办？
                 winning = uint8(p); // 记录序号
                 winningCount = proposals[p].count; // 记录票数
             }
