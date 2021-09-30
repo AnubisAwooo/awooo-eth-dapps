@@ -28,7 +28,7 @@ interface IAccessControl {
     event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender);
 
     /**
-     * 某账户角色被取消时触发 发起者可能是 admin 角色 也可能是账户
+     * 某账户角色被撤销时触发 发起者可能是 admin 角色 也可能是账户
      * @dev Emitted when `account` is revoked `role`.
      *
      * `sender` is the account that originated the contract call:
@@ -67,10 +67,10 @@ interface IAccessControl {
     function grantRole(bytes32 role, address account) external;
 
     /**
-     * 取消账户角色授权
+     * 撤销账户角色授权
      * @dev Revokes `role` from `account`.
      *
-     * 如果账户之前拥有该角色，取消后触发角色取消事件
+     * 如果账户之前拥有该角色，撤销后触发角色撤销事件
      * If `account` had been granted `role`, emits a {RoleRevoked} event.
      *
      * Requirements:
@@ -83,12 +83,12 @@ interface IAccessControl {
      * 放弃角色
      * @dev Revokes `role` from the calling account.
      *
-     * 角色的管理通常通过授予角色和取消角色，这里提供方法给账户主动放弃自己的角色
+     * 角色的管理通常通过授予角色和撤销角色，这里提供方法给账户主动放弃自己的角色
      * Roles are often managed via {grantRole} and {revokeRole}: this function's
      * purpose is to provide a mechanism for accounts to lose their privileges
      * if they are compromised (such as when a trusted device is misplaced).
      *
-     * 如果账户之前拥有该角色，取消后触发角色取消事件
+     * 如果账户之前拥有该角色，撤销后触发角色撤销事件
      * If the calling account had been granted `role`, emits a {RoleRevoked}
      * event.
      *
