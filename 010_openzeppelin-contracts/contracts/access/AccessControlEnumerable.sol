@@ -7,21 +7,24 @@ import "./AccessControl.sol";
 import "../utils/structs/EnumerableSet.sol";
 
 /**
+ *
  * @dev Extension of {AccessControl} that allows enumerating the members of each role.
  */
 abstract contract AccessControlEnumerable is IAccessControlEnumerable, AccessControl {
     using EnumerableSet for EnumerableSet.AddressSet;
 
-    mapping(bytes32 => EnumerableSet.AddressSet) private _roleMembers;
+    mapping(bytes32 => EnumerableSet.AddressSet) private _roleMembers; // 角色对应的地址
 
     /**
+     * ERC165 标准
      * @dev See {IERC165-supportsInterface}.
      */
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
-        return interfaceId == type(IAccessControlEnumerable).interfaceId || super.supportsInterface(interfaceId);
+        return interfaceId == type(IAccessControlEnumerable).interfaceId || super.supportsInterface(interfaceId); // super 用的好
     }
 
     /**
+     * 根据序号某角色的账户 公开函数 只读
      * @dev Returns one of the accounts that have `role`. `index` must be a
      * value between 0 and {getRoleMemberCount}, non-inclusive.
      *
@@ -38,6 +41,7 @@ abstract contract AccessControlEnumerable is IAccessControlEnumerable, AccessCon
     }
 
     /**
+     * 获取角色账户的个数 公开函数 只读
      * @dev Returns the number of accounts that have `role`. Can be used
      * together with {getRoleMember} to enumerate all bearers of a role.
      */
@@ -46,34 +50,38 @@ abstract contract AccessControlEnumerable is IAccessControlEnumerable, AccessCon
     }
 
     /**
+     * 授权角色 公开函数 可重写
      * @dev Overload {grantRole} to track enumerable memberships
      */
     function grantRole(bytes32 role, address account) public virtual override(AccessControl, IAccessControl) {
         super.grantRole(role, account);
-        _roleMembers[role].add(account);
+        _roleMembers[role].add(account); // 额外增加账户
     }
 
     /**
+     * 撤销角色 公开函数 可重写
      * @dev Overload {revokeRole} to track enumerable memberships
      */
     function revokeRole(bytes32 role, address account) public virtual override(AccessControl, IAccessControl) {
         super.revokeRole(role, account);
-        _roleMembers[role].remove(account);
+        _roleMembers[role].remove(account); // 额外移除账户
     }
 
     /**
+     * 放弃角色 公开函数 可重写
      * @dev Overload {renounceRole} to track enumerable memberships
      */
     function renounceRole(bytes32 role, address account) public virtual override(AccessControl, IAccessControl) {
         super.renounceRole(role, account);
-        _roleMembers[role].remove(account);
+        _roleMembers[role].remove(account); // 额外移除账户
     }
 
     /**
+     * 设置角色 内部函数 可重写
      * @dev Overload {_setupRole} to track enumerable memberships
      */
     function _setupRole(bytes32 role, address account) internal virtual override {
         super._setupRole(role, account);
-        _roleMembers[role].add(account);
+        _roleMembers[role].add(account); // 额外增加账户
     }
 }
