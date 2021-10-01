@@ -3,12 +3,14 @@
 pragma solidity ^0.8.0;
 
 /**
+ * 椭圆曲线加密库
  * @dev Elliptic Curve Digital Signature Algorithm (ECDSA) operations.
  *
  * These functions can be used to verify that a message was signed by the holder
  * of the private keys of a given address.
  */
 library ECDSA {
+    // 错误枚举
     enum RecoverError {
         NoError,
         InvalidSignature,
@@ -17,6 +19,7 @@ library ECDSA {
         InvalidSignatureV
     }
 
+    // 处理错误 私有函数 纯函数
     function _throwError(RecoverError error) private pure {
         if (error == RecoverError.NoError) {
             return; // no error: do nothing
@@ -32,13 +35,16 @@ library ECDSA {
     }
 
     /**
+     * 返回签名的地址或错误提示。地址可用于验证。 内部函数 纯函数
      * @dev Returns the address that signed a hashed message (`hash`) with
      * `signature` or error string. This address can then be used for verification purposes.
      *
+     * EVM 的操作码 ecrecover 允许拓展签名： 我噢
      * The `ecrecover` EVM opcode allows for malleable (non-unique) signatures:
      * this function rejects them by requiring the `s` value to be in the lower
      * half order, and the `v` value to be either 27 or 28.
      *
+     * 重要：hash 一定是 hash 验证安全操作之后的结果？？？完全不懂说的啥
      * IMPORTANT: `hash` _must_ be the result of a hash operation for the
      * verification to be secure: it is possible to craft signatures that
      * recover to arbitrary addresses for non-hashed data. A safe way to ensure
@@ -83,6 +89,7 @@ library ECDSA {
     }
 
     /**
+     * 返回签名的地址 内部函数 纯函数
      * @dev Returns the address that signed a hashed message (`hash`) with
      * `signature`. This address can then be used for verification purposes.
      *
@@ -103,6 +110,7 @@ library ECDSA {
     }
 
     /**
+     * 重载 内部函数 纯函数
      * @dev Overload of {ECDSA-tryRecover} that receives the `r` and `vs` short-signature fields separately.
      *
      * See https://eips.ethereum.org/EIPS/eip-2098[EIP-2098 short signatures]
@@ -124,6 +132,7 @@ library ECDSA {
     }
 
     /**
+     * 重载 内部函数 纯函数
      * @dev Overload of {ECDSA-recover} that receives the `r and `vs` short-signature fields separately.
      *
      * _Available since v4.2._
@@ -139,6 +148,7 @@ library ECDSA {
     }
 
     /**
+     * 重载 内部函数 纯函数
      * @dev Overload of {ECDSA-tryRecover} that receives the `v`,
      * `r` and `s` signature fields separately.
      *
@@ -176,6 +186,7 @@ library ECDSA {
     }
 
     /**
+     * 重载
      * @dev Overload of {ECDSA-recover} that receives the `v`,
      * `r` and `s` signature fields separately.
      */
@@ -191,6 +202,7 @@ library ECDSA {
     }
 
     /**
+     * 返回以太坊签名消息 内部函数 纯函数
      * @dev Returns an Ethereum Signed Message, created from a `hash`. This
      * produces hash corresponding to the one signed with the
      * https://eth.wiki/json-rpc/API#eth_sign[`eth_sign`]
@@ -205,6 +217,7 @@ library ECDSA {
     }
 
     /**
+     * 返回以太坊签名的类型数据
      * @dev Returns an Ethereum Signed Typed Data, created from a
      * `domainSeparator` and a `structHash`. This produces hash corresponding
      * to the one signed with the
