@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "../IERC20.sol";
 
 /**
+ * ERC20 接口
  * @dev Interface for the optional metadata functions from the ERC20 standard.
  *
  * _Available since v4.1._
