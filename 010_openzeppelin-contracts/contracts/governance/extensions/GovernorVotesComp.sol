@@ -6,6 +6,7 @@ import "../Governor.sol";
 import "../../token/ERC20/extensions/ERC20VotesComp.sol";
 
 /**
+ * 不知道干啥的
  * @dev Extension of {Governor} for voting weight extraction from a Comp token.
  *
  * _Available since v4.3._
