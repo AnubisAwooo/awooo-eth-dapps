@@ -10,11 +10,14 @@ import "../Governor.sol";
 import "./IGovernorCompatibilityBravo.sol";
 
 /**
+ * 实现 GovernorBravo 的兼容层
  * @dev Compatibility layer that implements GovernorBravo compatibility on to of {Governor}.
  *
+ * 包含投票系统 定时兼容模块 不包括 token 绑定 不包含升级模式
  * This compatibility layer includes a voting system and requires a {IGovernorTimelock} compatible module to be added
  * through inheritance. It does not include token bindings, not does it include any variable upgrade patterns.
  *
+ * 注意：使用本模块时，也许应该开启 Solidity 优化器来避免超过合约大小限制。
  * NOTE: When using this module, you may need to enable the Solidity optimizer to avoid hitting the contract size limit.
  *
  * _Available since v4.3._
@@ -56,6 +59,7 @@ abstract contract GovernorCompatibilityBravo is
 
     // ============================================== Proposal lifecycle ==============================================
     /**
+     * 提案 公开函数 可重写
      * @dev See {IGovernor-propose}.
      */
     function propose(
@@ -64,11 +68,12 @@ abstract contract GovernorCompatibilityBravo is
         bytes[] memory calldatas,
         string memory description
     ) public virtual override(IGovernor, Governor, GovernorProposalThreshold) returns (uint256) {
-        _storeProposal(_msgSender(), targets, values, new string[](calldatas.length), calldatas, description);
+        _storeProposal(_msgSender(), targets, values, new string[](calldatas.length), calldatas, description); // 保存提案信息
         return super.propose(targets, values, calldatas, description);
     }
 
     /**
+     * 提案 公开函数 可重写
      * @dev See {IGovernorCompatibilityBravo-propose}.
      */
     function propose(
@@ -83,6 +88,7 @@ abstract contract GovernorCompatibilityBravo is
     }
 
     /**
+     * 进入队列 公开函数 可重写
      * @dev See {IGovernorCompatibilityBravo-queue}.
      */
     function queue(uint256 proposalId) public virtual override {
@@ -96,6 +102,7 @@ abstract contract GovernorCompatibilityBravo is
     }
 
     /**
+     * 执行提案 公开函数 可支付 可重写
      * @dev See {IGovernorCompatibilityBravo-execute}.
      */
     function execute(uint256 proposalId) public payable virtual override {
@@ -108,6 +115,7 @@ abstract contract GovernorCompatibilityBravo is
         );
     }
 
+    // 取消提案 公开函数 可重写
     function cancel(uint256 proposalId) public virtual override {
         ProposalDetails storage details = _proposalDetails[proposalId];
 
@@ -125,6 +133,7 @@ abstract contract GovernorCompatibilityBravo is
     }
 
     /**
+     * 编码调用信息 私有函数 纯函数
      * @dev Encodes calldatas with optional function signature.
      */
     function _encodeCalldata(string[] memory signatures, bytes[] memory calldatas)
@@ -144,6 +153,7 @@ abstract contract GovernorCompatibilityBravo is
     }
 
     /**
+     * 存储提案元数据 以备查询
      * @dev Store proposal metadata for later lookup
      */
     function _storeProposal(
@@ -170,6 +180,7 @@ abstract contract GovernorCompatibilityBravo is
 
     // ==================================================== Views =====================================================
     /**
+     * 提案门槛 公开函数 只读 可重写
      * @dev Part of the Governor Bravo's interface: _"The number of votes required in order for a voter to become a proposer"_.
      */
     function proposalThreshold()
@@ -180,6 +191,7 @@ abstract contract GovernorCompatibilityBravo is
         returns (uint256);
 
     /**
+     * 所有提案信息 公开函数 只读 可重写
      * @dev See {IGovernorCompatibilityBravo-proposals}.
      */
     function proposals(uint256 proposalId)
@@ -217,6 +229,7 @@ abstract contract GovernorCompatibilityBravo is
     }
 
     /**
+     * 获取提案的具体信息 公开函数 只读 可重写
      * @dev See {IGovernorCompatibilityBravo-getActions}.
      */
     function getActions(uint256 proposalId)
@@ -236,6 +249,7 @@ abstract contract GovernorCompatibilityBravo is
     }
 
     /**
+     * 获取收据 公开函数 只读可重写
      * @dev See {IGovernorCompatibilityBravo-getReceipt}.
      */
     function getReceipt(uint256 proposalId, address voter) public view virtual override returns (Receipt memory) {
@@ -243,6 +257,7 @@ abstract contract GovernorCompatibilityBravo is
     }
 
     /**
+     * 投票人数 公开函数 只读 可重写
      * @dev See {IGovernorCompatibilityBravo-quorumVotes}.
      */
     function quorumVotes() public view virtual override returns (uint256) {
@@ -251,6 +266,7 @@ abstract contract GovernorCompatibilityBravo is
 
     // ==================================================== Voting ====================================================
     /**
+     * 是否投票 公开函数 只读 可重写
      * @dev See {IGovernor-hasVoted}.
      */
     function hasVoted(uint256 proposalId, address account) public view virtual override returns (bool) {
@@ -258,6 +274,7 @@ abstract contract GovernorCompatibilityBravo is
     }
 
     /**
+     * 计算有没有达到法定投票人数 内部函数 只读 可重写
      * @dev See {Governor-_quorumReached}. In this module, only forVotes count toward the quorum.
      */
     function _quorumReached(uint256 proposalId) internal view virtual override returns (bool) {
@@ -266,6 +283,7 @@ abstract contract GovernorCompatibilityBravo is
     }
 
     /**
+     * 计算投票是否通过 内部函数 只读 可重写
      * @dev See {Governor-_voteSucceeded}. In this module, the forVotes must be scritly over the againstVotes.
      */
     function _voteSucceeded(uint256 proposalId) internal view virtual override returns (bool) {
@@ -274,6 +292,7 @@ abstract contract GovernorCompatibilityBravo is
     }
 
     /**
+     * 统计投票？？ 内部函数 可重写
      * @dev See {Governor-_countVote}. In this module, the support follows Governor Bravo.
      */
     function _countVote(
