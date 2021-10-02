@@ -9,6 +9,7 @@ import "../../../utils/cryptography/ECDSA.sol";
 import "../../../utils/Counters.sol";
 
 /**
+ * ERC20 许可合约的实现，允许通过签名授权额度
  * @dev Implementation of the ERC20 Permit extension allowing approvals to be made via signatures, as defined in
  * https://eips.ethereum.org/EIPS/eip-2612[EIP-2612].
  *
@@ -59,6 +60,7 @@ abstract contract ERC20Permit is ERC20, IERC20Permit, EIP712 {
     }
 
     /**
+     * 这个 nonce 是记录在这个合约里面的 nonce，和以太坊上的 nonce 无关。
      * @dev See {IERC20Permit-nonces}.
      */
     function nonces(address owner) public view virtual override returns (uint256) {
@@ -66,6 +68,7 @@ abstract contract ERC20Permit is ERC20, IERC20Permit, EIP712 {
     }
 
     /**
+     * 域分隔符
      * @dev See {IERC20Permit-DOMAIN_SEPARATOR}.
      */
     // solhint-disable-next-line func-name-mixedcase
@@ -74,6 +77,7 @@ abstract contract ERC20Permit is ERC20, IERC20Permit, EIP712 {
     }
 
     /**
+     * 消耗一个 nonce
      * @dev "Consume a nonce": return the current value and increment.
      *
      * _Available since v4.1._
