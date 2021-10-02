@@ -7,6 +7,7 @@ import "../../token/ERC20/extensions/ERC20Votes.sol";
 import "../../utils/math/Math.sol";
 
 /**
+ * 拓展 Governor 投票权重？ 哎不想看了
  * @dev Extension of {Governor} for voting weight extraction from an {ERC20Votes} token.
  *
  * _Available since v4.3._
