@@ -7,8 +7,10 @@ import "./extensions/IERC20Metadata.sol";
 import "../../utils/Context.sol";
 
 /**
+ * 实现 ERC20 接口
  * @dev Implementation of the {IERC20} interface.
  *
+ * 这里没有实现如何铸币，要求在子合约里调用 _mint 方法进行铸币。 更一般的方法见 ERC20PresetMinterPauser。
  * This implementation is agnostic to the way tokens are created. This means
  * that a supply mechanism has to be added in a derived contract using {_mint}.
  * For a generic mechanism see {ERC20PresetMinterPauser}.
@@ -17,16 +19,19 @@ import "../../utils/Context.sol";
  * https://forum.zeppelin.solutions/t/how-to-implement-erc20-supply-mechanisms/226[How
  * to implement supply mechanisms].
  *
+ * 我们遵循 OpenZeppelin 合约设计思想：函数报错而不是返回错误，这种思想不和 ERC20 应用冲突
  * We have followed general OpenZeppelin Contracts guidelines: functions revert
  * instead returning `false` on failure. This behavior is nonetheless
  * conventional and does not conflict with the expectations of ERC20
  * applications.
  *
+ * 另外，Approval 事件在 transferFrom 方法中也触发。其他合约可能不会触发，但这不是重点。
  * Additionally, an {Approval} event is emitted on calls to {transferFrom}.
  * This allows applications to reconstruct the allowance for all accounts just
  * by listening to said events. Other implementations of the EIP may not emit
  * these events, as it isn't required by the specification.
  *
+ * 最后，非标准的 decreaseAllowance 和 increaseAllowance 函数的实现减轻了广为人知的允许额度的问题。
  * Finally, the non-standard {decreaseAllowance} and {increaseAllowance}
  * functions have been added to mitigate the well-known issues around setting
  * allowances. See {IERC20-approve}.
@@ -154,15 +159,16 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         _transfer(sender, recipient, amount);
 
         uint256 currentAllowance = _allowances[sender][_msgSender()];
-        require(currentAllowance >= amount, "ERC20: transfer amount exceeds allowance");
+        require(currentAllowance >= amount, "ERC20: transfer amount exceeds allowance"); // 这里有检查允许额度
         unchecked {
-            _approve(sender, _msgSender(), currentAllowance - amount);
+            _approve(sender, _msgSender(), currentAllowance - amount); // 这里要更新允许额度
         }
 
         return true;
     }
 
     /**
+     * 增加允许的额度
      * @dev Atomically increases the allowance granted to `spender` by the caller.
      *
      * This is an alternative to {approve} that can be used as a mitigation for
@@ -180,6 +186,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
     }
 
     /**
+     * 减少允许的额度
      * @dev Atomically decreases the allowance granted to `spender` by the caller.
      *
      * This is an alternative to {approve} that can be used as a mitigation for
