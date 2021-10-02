@@ -7,6 +7,7 @@ import "../Governor.sol";
 import "../TimelockController.sol";
 
 /**
+ * 拓展 Governor 绑定执行步骤 ？？？
  * @dev Extension of {Governor} that binds the execution process to an instance of {TimelockController}. This adds a
  * delay, enforced by the {TimelockController} to all successful proposal (in addition to the voting duration). The
  * {Governor} needs the proposer (an ideally the executor) roles for the {Governor} to work properly.
