@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "../access/AccessControl.sol";
 
 /**
+ * 时间锁定控制器
  * @dev Contract module which acts as a timelocked controller. When set as the
  * owner of an `Ownable` smart contract, it enforces a timelock on all
  * `onlyOwner` maintenance operations. This gives time for users of the
@@ -29,6 +30,7 @@ contract TimelockController is AccessControl {
     uint256 private _minDelay;
 
     /**
+     * 定时任务调用事件
      * @dev Emitted when a call is scheduled as part of operation `id`.
      */
     event CallScheduled(
@@ -42,16 +44,19 @@ contract TimelockController is AccessControl {
     );
 
     /**
+     * 调用执行事件
      * @dev Emitted when a call is performed as part of operation `id`.
      */
     event CallExecuted(bytes32 indexed id, uint256 indexed index, address target, uint256 value, bytes data);
 
     /**
+     * 取消事件
      * @dev Emitted when operation `id` is cancelled.
      */
     event Cancelled(bytes32 indexed id);
 
     /**
+     * 最小延时改变
      * @dev Emitted when the minimum delay for future operations is modified.
      */
     event MinDelayChange(uint256 oldDuration, uint256 newDuration);
@@ -87,6 +92,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 修改器 开放权限或指定角色
      * @dev Modifier to make a function callable only by a certain role. In
      * addition to checking the sender's role, `address(0)` 's role is also
      * considered. Granting a role to `address(0)` is equivalent to enabling
@@ -100,11 +106,13 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 接受以太币
      * @dev Contract might receive/hold ETH as part of the maintenance process.
      */
     receive() external payable {}
 
     /**
+     * id 是否注册操作？？？ 不想看了，什么都看不懂
      * @dev Returns whether an id correspond to a registered operation. This
      * includes both Pending, Ready and Done operations.
      */
@@ -113,13 +121,15 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * ？？
      * @dev Returns whether an operation is pending or not.
      */
     function isOperationPending(bytes32 id) public view virtual returns (bool pending) {
-        return getTimestamp(id) > _DONE_TIMESTAMP;
+        return getTimestamp(id) > _DONE_TIMESTAMP; // DONE TIMESTAMP 是 1
     }
 
     /**
+     * 是否准备好操作
      * @dev Returns whether an operation is ready or not.
      */
     function isOperationReady(bytes32 id) public view virtual returns (bool ready) {
@@ -128,6 +138,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 是否操作完成
      * @dev Returns whether an operation is done or not.
      */
     function isOperationDone(bytes32 id) public view virtual returns (bool done) {
@@ -135,6 +146,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 获取 id 对应的时间戳
      * @dev Returns the timestamp at with an operation becomes ready (0 for
      * unset operations, 1 for done operations).
      */
@@ -143,6 +155,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 获取最小延时
      * @dev Returns the minimum delay for an operation to become valid.
      *
      * This value can be changed by executing an operation that calls `updateDelay`.
@@ -152,6 +165,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 返回包含单个交易操作的标识符 hash 值
      * @dev Returns the identifier of an operation containing a single
      * transaction.
      */
@@ -166,6 +180,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 批量操作的标识
      * @dev Returns the identifier of an operation containing a batch of
      * transactions.
      */
@@ -180,6 +195,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 定时操作
      * @dev Schedule an operation containing a single transaction.
      *
      * Emits a {CallScheduled} event.
@@ -202,6 +218,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 批量定时操作
      * @dev Schedule an operation containing a batch of transactions.
      *
      * Emits one {CallScheduled} event per transaction in the batch.
@@ -229,6 +246,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 设置定时时间戳
      * @dev Schedule an operation that is to becomes valid after a given delay.
      */
     function _schedule(bytes32 id, uint256 delay) private {
@@ -238,6 +256,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 取消操作
      * @dev Cancel an operation.
      *
      * Requirements:
@@ -252,6 +271,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 执行操作
      * @dev Execute an (ready) operation containing a single transaction.
      *
      * Emits a {CallExecuted} event.
@@ -274,6 +294,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 批量执行操作
      * @dev Execute an (ready) operation containing a batch of transactions.
      *
      * Emits one {CallExecuted} event per transaction in the batch.
@@ -301,6 +322,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 执行前操作
      * @dev Checks before execution of an operation's calls.
      */
     function _beforeCall(bytes32 id, bytes32 predecessor) private view {
@@ -309,6 +331,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 执行后操作
      * @dev Checks after execution of an operation's calls.
      */
     function _afterCall(bytes32 id) private {
@@ -317,6 +340,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 执行
      * @dev Execute an operation's call.
      *
      * Emits a {CallExecuted} event.
@@ -335,6 +359,7 @@ contract TimelockController is AccessControl {
     }
 
     /**
+     * 更新延时
      * @dev Changes the minimum timelock duration for future operations.
      *
      * Emits a {MinDelayChange} event.
