@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "../Governor.sol";
 
 /**
+ * Governor 的简单实现 3 个选项 投票计数
  * @dev Extension of {Governor} for simple, 3 options, vote counting.
  *
  * _Available since v4.3._
