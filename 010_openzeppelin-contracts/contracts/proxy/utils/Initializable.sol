@@ -3,6 +3,8 @@
 pragma solidity ^0.8.0;
 
 /**
+ * 当前抽象合约用于辅助设计可升级合约，或者其他类型用于部署在代理后面的合约。代理合约不能有构造器函数，将构造器函数内的逻辑移到一个外部的初始化函数中是很常见的。
+ * 有必要保证初始化函数只运行一次。
  * @dev This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed
  * behind a proxy. Since a proxied contract can't have a constructor, it's common to move constructor logic to an
  * external initializer function, usually called `initialize`. It then becomes necessary to protect this initializer
@@ -41,6 +43,7 @@ abstract contract Initializable {
     bool private _initializing;
 
     /**
+     * 修改器 被修饰的函数只会调用 2 次？
      * @dev Modifier to protect an initializer function from being invoked twice.
      */
     modifier initializer() {
