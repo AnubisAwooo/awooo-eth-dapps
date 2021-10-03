@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "../ERC1155.sol";
 
 /**
+ * ERC1155 根据 id 记录供应，就是每个 tokenid 下面也许多个同质化代币
  * @dev Extension of ERC1155 that adds tracking of total supply per id.
  *
  * Useful for scenarios where Fungible and Non-fungible tokens have to be
