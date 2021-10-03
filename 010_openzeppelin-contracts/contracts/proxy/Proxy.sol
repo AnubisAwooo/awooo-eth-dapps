@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 /**
+ * 本抽象合约提供了一个 fallback 函数，可以委托所有的函数调用到另外一个合约，使用 EVM 指令 delegatecall。
  * @dev This abstract contract provides a fallback function that delegates all calls to another contract using the EVM
  * instruction `delegatecall`. We refer to the second contract as the _implementation_ behind the proxy, and it has to
  * be specified by overriding the virtual {_implementation} function.
@@ -14,6 +15,7 @@ pragma solidity ^0.8.0;
  */
 abstract contract Proxy {
     /**
+     * 委托当前的调用到其他合约
      * @dev Delegates the current call to `implementation`.
      *
      * This function does not return to its internall call site, it will return directly to the external caller.
@@ -44,6 +46,7 @@ abstract contract Proxy {
     }
 
     /**
+     * 这个虚函数应该被重写返回要被代理的合约地址
      * @dev This is a virtual function that should be overriden so it returns the address to which the fallback function
      * and {_fallback} should delegate.
      */
