@@ -2,6 +2,7 @@
 
 pragma solidity ^0.8.0;
 
+// ERC1363 接收者接口 要求实现 onTransferReceived 方法
 interface IERC1363Receiver {
     /*
      * Note: the ERC-165 identifier for this interface is 0x88a7ca5c.
