@@ -7,8 +7,10 @@ import "../Proxy.sol";
 import "../ERC1967/ERC1967Upgrade.sol";
 
 /**
+ * 本合约实现了代理，对于每一个函数调用能够获取被代理的合约地址 ？？
  * @dev This contract implements a proxy that gets the implementation address for each call from a {UpgradeableBeacon}.
  *
+ * 信标地址存储在存储槽 ... 中，和被代理的合约存储地址不可能冲突？
  * The beacon address is stored in storage slot `uint256(keccak256('eip1967.proxy.beacon')) - 1`, so that it doesn't
  * conflict with the storage layout of the implementation behind the proxy.
  *
@@ -16,8 +18,10 @@ import "../ERC1967/ERC1967Upgrade.sol";
  */
 contract BeaconProxy is Proxy, ERC1967Upgrade {
     /**
+     * 构造器函数 初始化信标地址
      * @dev Initializes the proxy with `beacon`.
      *
+     * 如果 data 参数非空，将被用于委托调用
      * If `data` is nonempty, it's used as data in a delegate call to the implementation returned by the beacon. This
      * will typically be an encoded function call, and allows initializating the storage of the proxy like a Solidity
      * constructor.
