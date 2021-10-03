@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "./IERC165.sol";
 
 /**
+ * 不明白干嘛用的
  * @dev Interface for the NFT Royalty Standard
  */
 interface IERC2981 is IERC165 {
