@@ -11,8 +11,10 @@ import "../../utils/Context.sol";
 import "../../utils/introspection/IERC1820Registry.sol";
 
 /**
+ * ERC777 接口实现
  * @dev Implementation of the {IERC777} interface.
  *
+ * 铸币方法需要看情况调用。
  * This implementation is agnostic to the way tokens are created. This means
  * that a supply mechanism has to be added in a derived contract using {_mint}.
  *
