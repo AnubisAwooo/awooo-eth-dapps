@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "./ERC1155Receiver.sol";
 
 /**
+ * ERC1155 持有者
  * @dev _Available since v3.1._
  */
 contract ERC1155Holder is ERC1155Receiver {
