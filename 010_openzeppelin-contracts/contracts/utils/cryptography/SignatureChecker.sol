@@ -7,6 +7,7 @@ import "../Address.sol";
 import "../../interfaces/IERC1271.sol";
 
 /**
+ * 签名检查
  * @dev Signature verification helper: Provide a single mechanism to verify both private-key (EOA) ECDSA signature and
  * ERC1271 contract signatures. Using this instead of ECDSA.recover in your contract will make them compatible with
  * smart contract wallets such as Argent and Gnosis.
