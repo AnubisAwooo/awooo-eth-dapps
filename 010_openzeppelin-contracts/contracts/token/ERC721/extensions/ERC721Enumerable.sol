@@ -6,6 +6,7 @@ import "../ERC721.sol";
 import "./IERC721Enumerable.sol";
 
 /**
+ * ERC721 带枚举
  * @dev This implements an optional extension of {ERC721} defined in the EIP that adds
  * enumerability of all the token ids in the contract as well as all token ids owned by each
  * account.
