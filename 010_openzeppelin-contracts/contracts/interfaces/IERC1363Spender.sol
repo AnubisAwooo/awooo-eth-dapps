@@ -2,6 +2,7 @@
 
 pragma solidity ^0.8.0;
 
+// ERC1363 合约花费者 要求实现 onApprovalReceived 方法
 interface IERC1363Spender {
     /*
      * Note: the ERC-165 identifier for this interface is 0x7b04a2d0.
