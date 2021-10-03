@@ -7,6 +7,7 @@ import "../../utils/Address.sol";
 import "../../utils/StorageSlot.sol";
 
 /**
+ * 本抽象合约针对 EIP1967 槽 提供获取和事件触发升级函数 ？？？不知道是啥
  * @dev This abstract contract provides getters and event emitting update functions for
  * https://eips.ethereum.org/EIPS/eip-1967[EIP1967] slots.
  *
@@ -26,11 +27,13 @@ abstract contract ERC1967Upgrade {
     bytes32 internal constant _IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
 
     /**
+     * 升级事件
      * @dev Emitted when the implementation is upgraded.
      */
     event Upgraded(address indexed implementation);
 
     /**
+     * 获取当前被代理合约
      * @dev Returns the current implementation address.
      */
     function _getImplementation() internal view returns (address) {
@@ -38,6 +41,7 @@ abstract contract ERC1967Upgrade {
     }
 
     /**
+     * 设置被代理合约 私有函数
      * @dev Stores a new address in the EIP1967 implementation slot.
      */
     function _setImplementation(address newImplementation) private {
@@ -46,6 +50,7 @@ abstract contract ERC1967Upgrade {
     }
 
     /**
+     * 升级合约
      * @dev Perform implementation upgrade
      *
      * Emits an {Upgraded} event.
@@ -56,6 +61,7 @@ abstract contract ERC1967Upgrade {
     }
 
     /**
+     * 升级合约并调用
      * @dev Perform implementation upgrade with additional setup call.
      *
      * Emits an {Upgraded} event.
@@ -72,6 +78,7 @@ abstract contract ERC1967Upgrade {
     }
 
     /**
+     * 升级合约并且安全调用函数
      * @dev Perform implementation upgrade with security checks for UUPS proxies, and additional setup call.
      *
      * Emits an {Upgraded} event.
@@ -114,11 +121,13 @@ abstract contract ERC1967Upgrade {
     bytes32 internal constant _ADMIN_SLOT = 0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103;
 
     /**
+     * admin地址变更事件
      * @dev Emitted when the admin account has changed.
      */
     event AdminChanged(address previousAdmin, address newAdmin);
 
     /**
+     * 获取当前 admin 地址
      * @dev Returns the current admin.
      */
     function _getAdmin() internal view returns (address) {
@@ -126,6 +135,7 @@ abstract contract ERC1967Upgrade {
     }
 
     /**
+     * 设置 admin 地址 私有函数
      * @dev Stores a new address in the EIP1967 admin slot.
      */
     function _setAdmin(address newAdmin) private {
@@ -134,6 +144,7 @@ abstract contract ERC1967Upgrade {
     }
 
     /**
+     * 改变 admin 地址 内部函数
      * @dev Changes the admin of the proxy.
      *
      * Emits an {AdminChanged} event.
