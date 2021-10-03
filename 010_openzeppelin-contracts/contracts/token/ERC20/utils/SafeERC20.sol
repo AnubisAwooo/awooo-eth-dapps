@@ -6,6 +6,7 @@ import "../IERC20.sol";
 import "../../../utils/Address.sol";
 
 /**
+ * 包装 ERC20 操作抛出错误
  * @title SafeERC20
  * @dev Wrappers around ERC20 operations that throw on failure (when the token
  * contract returns false). Tokens that return no value (and instead revert or
