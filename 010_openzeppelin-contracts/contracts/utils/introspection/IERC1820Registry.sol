@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 /**
+ * 全局 ERC1820 注册，账户可以注册接口实现，以便查询。
  * @dev Interface of the global ERC1820 Registry, as defined in the
  * https://eips.ethereum.org/EIPS/eip-1820[EIP]. Accounts may register
  * implementers for interfaces in this registry, as well as query support.
