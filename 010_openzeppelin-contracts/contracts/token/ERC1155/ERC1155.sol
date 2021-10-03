@@ -10,6 +10,7 @@ import "../../utils/Context.sol";
 import "../../utils/introspection/ERC165.sol";
 
 /**
+ * ERC1155 接口实现
  * @dev Implementation of the basic standard multi-token.
  * See https://eips.ethereum.org/EIPS/eip-1155
  * Originally based on code by Enjin: https://github.com/enjin/erc-1155
