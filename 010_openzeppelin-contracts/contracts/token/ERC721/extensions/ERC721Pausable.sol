@@ -6,6 +6,7 @@ import "../ERC721.sol";
 import "../../../security/Pausable.sol";
 
 /**
+ * ERC721 带暂停功能
  * @dev ERC721 token with pausable token transfers, minting and burning.
  *
  * Useful for scenarios such as preventing trades until the end of an evaluation
