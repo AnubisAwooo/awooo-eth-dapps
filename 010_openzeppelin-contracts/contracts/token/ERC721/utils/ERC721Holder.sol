@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "../IERC721Receiver.sol";
 
 /**
+ * ERC721 接收者接口 要求实现 onERC721Received 方法
  * @dev Implementation of the {IERC721Receiver} interface.
  *
  * Accepts all token transfers.
