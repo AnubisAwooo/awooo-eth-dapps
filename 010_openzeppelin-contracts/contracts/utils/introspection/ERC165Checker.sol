@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "./IERC165.sol";
 
 /**
+ * ERC165 检查
  * @dev Library used to query support of an interface declared via {IERC165}.
  *
  * Note that these functions return the actual result of the query: they do not
