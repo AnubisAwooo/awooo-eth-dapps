@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "../utils/escrow/Escrow.sol";
 
 /**
+ * PullPayment 的简单实现 支付合约不直接和收款账户交互。
  * @dev Simple implementation of a
  * https://consensys.github.io/smart-contract-best-practices/recommendations/#favor-pull-over-push-for-external-calls[pull-payment]
  * strategy, where the paying contract doesn't interact directly with the
