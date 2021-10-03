@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import "../extensions/ERC20Burnable.sol";
 
 /**
+ * ERC20 固定总量
  * @dev {ERC20} token, including:
  *
  *  - Preminted initial supply
