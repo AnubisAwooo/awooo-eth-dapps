@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "../IERC1155.sol";
 
 /**
+ * ERC1155元数据 URI 接口
  * @dev Interface of the optional ERC1155MetadataExtension interface, as defined
  * in the https://eips.ethereum.org/EIPS/eip-1155#metadata-extensions[EIP].
  *
