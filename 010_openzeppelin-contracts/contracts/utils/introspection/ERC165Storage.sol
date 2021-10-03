@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "./ERC165.sol";
 
 /**
+ * ERC165 存储检查
  * @dev Storage based implementation of the {IERC165} interface.
  *
  * Contracts may inherit from this and call {_registerInterface} to declare
