@@ -11,8 +11,11 @@ import "../../../utils/Context.sol";
 /**
  * @dev {ERC20} token, including:
  *
+ *  - 燃烧token
  *  - ability for holders to burn (destroy) their tokens
+ *  - 挖矿角色可以挖矿
  *  - a minter role that allows for token minting (creation)
+ *  - 暂停角色可以停止 token 转账
  *  - a pauser role that allows to stop all token transfers
  *
  * This contract uses {AccessControl} to lock permissioned functions using the
