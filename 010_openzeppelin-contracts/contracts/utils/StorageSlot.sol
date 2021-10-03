@@ -3,11 +3,14 @@
 pragma solidity ^0.8.0;
 
 /**
+ * 直接从存储槽中读写原始数据类型的库
  * @dev Library for reading and writing primitive types to specific storage slots.
  *
+ * 当处理可升级的合约时，存储槽经常被用来避免存储冲突。本库可以帮助读写这样的槽，并且不需要写 assembly 代码。
  * Storage slots are often used to avoid storage conflict when dealing with upgradeable contracts.
  * This library helps with reading and writing to such slots without the need for inline assembly.
  *
+ * 本库的函数返回一个槽结构体，该结构体包含 value 成员可以用来读写。
  * The functions in this library return Slot structs that contain a `value` member that can be used to read or write.
  *
  * Example usage to set ERC1967 implementation slot:
