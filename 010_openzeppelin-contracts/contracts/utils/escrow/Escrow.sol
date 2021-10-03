@@ -6,6 +6,7 @@ import "../../access/Ownable.sol";
 import "../Address.sol";
 
 /**
+ * 第三方保管
  * @title Escrow
  * @dev Base escrow contract, holds funds designated for a payee until they
  * withdraw them.
