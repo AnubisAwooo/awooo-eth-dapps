@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "../IERC721.sol";
 
 /**
+ * ERC721 元数据
  * @title ERC-721 Non-Fungible Token Standard, optional metadata extension
  * @dev See https://eips.ethereum.org/EIPS/eip-721
  */
