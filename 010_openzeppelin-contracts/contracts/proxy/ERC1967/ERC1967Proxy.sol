@@ -6,6 +6,7 @@ import "../Proxy.sol";
 import "./ERC1967Upgrade.sol";
 
 /**
+ * 可升级合约
  * @dev This contract implements an upgradeable proxy. It is upgradeable because calls are delegated to an
  * implementation address that can be changed. This address is stored in storage in the location specified by
  * https://eips.ethereum.org/EIPS/eip-1967[EIP1967], so that it doesn't conflict with the storage layout of the
