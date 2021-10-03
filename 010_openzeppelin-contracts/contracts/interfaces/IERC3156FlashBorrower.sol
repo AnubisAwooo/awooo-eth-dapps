@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 /**
+ * ERC3156 闪电借款人 要求实现 onFlashLoan 方法
  * @dev Interface of the ERC3156 FlashBorrower, as defined in
  * https://eips.ethereum.org/EIPS/eip-3156[ERC-3156].
  *
