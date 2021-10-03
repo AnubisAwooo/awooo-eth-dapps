@@ -13,9 +13,13 @@ import "../../../utils/Counters.sol";
 /**
  * @dev {ERC721} token, including:
  *
+ *  - 持有者能烧毁代币
  *  - ability for holders to burn (destroy) their tokens
+ *  - 矿工角色能够挖矿
  *  - a minter role that allows for token minting (creation)
+ *  - 暂停角色允许停止所有代币转账
  *  - a pauser role that allows to stop all token transfers
+ *  - 自动生成 id 和 URI
  *  - token ID and URI autogeneration
  *
  * This contract uses {AccessControl} to lock permissioned functions using the
