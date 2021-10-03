@@ -6,6 +6,7 @@ import "../ERC20.sol";
 import "../../../security/Pausable.sol";
 
 /**
+ * ERC20 增加停止控制
  * @dev ERC20 token with pausable token transfers, minting and burning.
  *
  * Useful for scenarios such as preventing trades until the end of an evaluation
