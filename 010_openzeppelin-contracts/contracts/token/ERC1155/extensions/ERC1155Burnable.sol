@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "../ERC1155.sol";
 
 /**
+ * ERC1155 带销毁
  * @dev Extension of {ERC1155} that allows token holders to destroy both their
  * own tokens and those that they have been approved to use.
  *
