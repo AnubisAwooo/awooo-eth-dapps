@@ -6,6 +6,7 @@ import "../IERC1155Receiver.sol";
 import "../../../utils/introspection/ERC165.sol";
 
 /**
+ * ERC1155 接收者
  * @dev _Available since v3.1._
  */
 abstract contract ERC1155Receiver is ERC165, IERC1155Receiver {
