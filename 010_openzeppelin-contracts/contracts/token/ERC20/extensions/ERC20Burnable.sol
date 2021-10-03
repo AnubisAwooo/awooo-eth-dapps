@@ -6,6 +6,7 @@ import "../ERC20.sol";
 import "../../../utils/Context.sol";
 
 /**
+ * ERC20 代币合约 带 烧毁
  * @dev Extension of {ERC20} that allows token holders to destroy both their own
  * tokens and those that they have an allowance for, in a way that can be
  * recognized off-chain (via event analysis).
