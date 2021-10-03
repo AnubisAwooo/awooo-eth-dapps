@@ -3,12 +3,15 @@
 pragma solidity ^0.8.0;
 
 /**
+ * EIP1167 是一个标准，用来部署最小代理合约。
  * @dev https://eips.ethereum.org/EIPS/eip-1167[EIP 1167] is a standard for
  * deploying minimal proxy contracts, also known as "clones".
  *
+ * 为了简单、便宜和不可改变的方式克隆合约功能，本标准采用最少字节码实现委托所有方法调用指向一个已知的的固定地址。
  * > To simply and cheaply clone contract functionality in an immutable way, this standard specifies
  * > a minimal bytecode implementation that delegates all calls to a known, fixed address.
  *
+ * 库包含函数用来部署一个代理合约，使用 create 或 create2 方法。
  * The library includes functions to deploy a proxy using either `create` (traditional deployment) or `create2`
  * (salted deterministic deployment). It also includes functions to predict the addresses of clones deployed using the
  * deterministic method.
@@ -17,6 +20,7 @@ pragma solidity ^0.8.0;
  */
 library Clones {
     /**
+     * 部署一个模仿指定合约行为的合约
      * @dev Deploys and returns the address of a clone that mimics the behaviour of `implementation`.
      *
      * This function uses the create opcode, which should never revert.
@@ -51,6 +55,7 @@ library Clones {
     }
 
     /**
+     * 计算克隆部署的合约的地址
      * @dev Computes the address of a clone deployed using {Clones-cloneDeterministic}.
      */
     function predictDeterministicAddress(
