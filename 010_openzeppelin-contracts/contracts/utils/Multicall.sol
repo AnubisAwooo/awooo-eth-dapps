@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "./Address.sol";
 
 /**
+ * 多个调用
  * @dev Provides a function to batch together multiple calls in a single external call.
  *
  * _Available since v4.1._
