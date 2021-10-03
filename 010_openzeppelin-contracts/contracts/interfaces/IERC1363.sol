@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "./IERC20.sol";
 import "./IERC165.sol";
 
+// 结合 ERC20 和 ERC165 接口
 interface IERC1363 is IERC165, IERC20 {
     /*
      * Note: the ERC-165 identifier for this interface is 0x4bbee2df.
@@ -23,6 +24,7 @@ interface IERC1363 is IERC165, IERC20 {
      */
 
     /**
+     * 转账并且调用 接收者的 onTransferReceived 函数
      * @dev Transfer tokens from `msg.sender` to another address and then call `onTransferReceived` on receiver
      * @param to address The address which you want to transfer to
      * @param value uint256 The amount of tokens to be transferred
@@ -31,6 +33,7 @@ interface IERC1363 is IERC165, IERC20 {
     function transferAndCall(address to, uint256 value) external returns (bool);
 
     /**
+     * 转账并且调用 接收者的 onTransferReceived 函数
      * @dev Transfer tokens from `msg.sender` to another address and then call `onTransferReceived` on receiver
      * @param to address The address which you want to transfer to
      * @param value uint256 The amount of tokens to be transferred
@@ -44,6 +47,7 @@ interface IERC1363 is IERC165, IERC20 {
     ) external returns (bool);
 
     /**
+     * 转账并且调用 接收者的 onTransferReceived 函数
      * @dev Transfer tokens from one address to another and then call `onTransferReceived` on receiver
      * @param from address The address which you want to send tokens from
      * @param to address The address which you want to transfer to
@@ -57,6 +61,7 @@ interface IERC1363 is IERC165, IERC20 {
     ) external returns (bool);
 
     /**
+     * 转账并且调用 接收者的 onTransferReceived 函数
      * @dev Transfer tokens from one address to another and then call `onTransferReceived` on receiver
      * @param from address The address which you want to send tokens from
      * @param to address The address which you want to transfer to
@@ -72,6 +77,7 @@ interface IERC1363 is IERC165, IERC20 {
     ) external returns (bool);
 
     /**
+     * 转账并且调用 接收者的 onTransferReceived 函数
      * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender
      * and then call `onApprovalReceived` on spender.
      * @param spender address The address which will spend the funds
@@ -80,6 +86,7 @@ interface IERC1363 is IERC165, IERC20 {
     function approveAndCall(address spender, uint256 value) external returns (bool);
 
     /**
+     * 转账并且调用 接收者的 onTransferReceived 函数
      * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender
      * and then call `onApprovalReceived` on spender.
      * @param spender address The address which will spend the funds
