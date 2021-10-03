@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "../../utils/introspection/IERC165.sol";
 
 /**
+ * ERC1155 接口 要求实现 onERC1155Received 和 onERC1155BatchReceived 方法
  * @dev _Available since v3.1._
  */
 interface IERC1155Receiver is IERC165 {
