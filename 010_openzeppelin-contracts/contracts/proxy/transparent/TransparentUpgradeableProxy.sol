@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "../ERC1967/ERC1967Proxy.sol";
 
 /**
+ * 本合约实现代理，通过 admin 进行升级
  * @dev This contract implements a proxy that is upgradeable by an admin.
  *
  * To avoid https://medium.com/nomic-labs-blog/malicious-backdoors-in-ethereum-proxies-62629adf3357[proxy selector
