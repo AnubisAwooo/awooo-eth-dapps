@@ -6,6 +6,7 @@ import "../ERC721.sol";
 import "../../../utils/Context.sol";
 
 /**
+ * ERC721 燃烧功能
  * @title ERC721 Burnable Token
  * @dev ERC721 Token that can be irreversibly burned (destroyed).
  */
