@@ -5,10 +5,12 @@ pragma solidity ^0.8.0;
 import "./math/Math.sol";
 
 /**
+ * 数组类型的集合操作
  * @dev Collection of functions related to array types.
  */
 library Arrays {
     /**
+     * 查找一个排序数组中第一个大于或等于指定元素的元素序号
      * @dev Searches a sorted `array` and returns the first index that contains
      * a value greater or equal to `element`. If no such index exists (i.e. all
      * values in the array are strictly less than `element`), the array length is
