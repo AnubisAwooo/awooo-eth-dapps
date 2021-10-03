@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "./IERC3156FlashBorrower.sol";
 
 /**
+ * ERC3156 出借人
  * @dev Interface of the ERC3156 FlashLender, as defined in
  * https://eips.ethereum.org/EIPS/eip-3156[ERC-3156].
  *
@@ -12,6 +13,7 @@ import "./IERC3156FlashBorrower.sol";
  */
 interface IERC3156FlashLender {
     /**
+     * 可借出的数量
      * @dev The amount of currency available to be lended.
      * @param token The loan currency.
      * @return The amount of `token` that can be borrowed.
@@ -19,6 +21,7 @@ interface IERC3156FlashLender {
     function maxFlashLoan(address token) external view returns (uint256);
 
     /**
+     * 出借费用
      * @dev The fee to be charged for a given loan.
      * @param token The loan currency.
      * @param amount The amount of tokens lent.
@@ -27,6 +30,7 @@ interface IERC3156FlashLender {
     function flashFee(address token, uint256 amount) external view returns (uint256);
 
     /**
+     * 进行闪电出借
      * @dev Initiate a flash loan.
      * @param receiver The receiver of the tokens in the loan, and the receiver of the callback.
      * @param token The loan currency.
