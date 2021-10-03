@@ -7,6 +7,7 @@ import "../../../utils/Arrays.sol";
 import "../../../utils/Counters.sol";
 
 /**
+ * 本合约拓展 ERC20 合约，增加快照机制。当快照创建后，余额和总供应量在那个时刻就被记录下来以供访问。
  * @dev This contract extends an ERC20 token with a snapshot mechanism. When a snapshot is created, the balances and
  * total supply at the time are recorded for later access.
  *
@@ -52,18 +53,20 @@ abstract contract ERC20Snapshot is ERC20 {
         uint256[] values;
     }
 
-    mapping(address => Snapshots) private _accountBalanceSnapshots;
-    Snapshots private _totalSupplySnapshots;
+    mapping(address => Snapshots) private _accountBalanceSnapshots; // 账户余额快照
+    Snapshots private _totalSupplySnapshots; // 总供应量快照
 
     // Snapshot ids increase monotonically, with the first value being 1. An id of 0 is invalid.
-    Counters.Counter private _currentSnapshotId;
+    Counters.Counter private _currentSnapshotId; // 当前快照 id 计数器
 
     /**
+     * 快照生成事件
      * @dev Emitted by {_snapshot} when a snapshot identified by `id` is created.
      */
     event Snapshot(uint256 id);
 
     /**
+     * 创建一个新的快照，返回快照 id
      * @dev Creates a new snapshot and returns its snapshot id.
      *
      * Emits a {Snapshot} event that contains the same id.
@@ -85,10 +88,10 @@ abstract contract ERC20Snapshot is ERC20 {
      * ====
      */
     function _snapshot() internal virtual returns (uint256) {
-        _currentSnapshotId.increment();
+        _currentSnapshotId.increment(); // id 自增 1
 
-        uint256 currentId = _getCurrentSnapshotId();
-        emit Snapshot(currentId);
+        uint256 currentId = _getCurrentSnapshotId(); // 获取当前 id
+        emit Snapshot(currentId); // 触发事件
         return currentId;
     }
 
