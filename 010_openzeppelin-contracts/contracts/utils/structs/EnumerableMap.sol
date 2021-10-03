@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "./EnumerableSet.sol";
 
 /**
+ * 可迭代的 map
  * @dev Library for managing an enumerable variant of Solidity's
  * https://solidity.readthedocs.io/en/latest/types.html#mapping-types[`mapping`]
  * type.
