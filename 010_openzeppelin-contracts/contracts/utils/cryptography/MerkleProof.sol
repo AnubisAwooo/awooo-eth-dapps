@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 /**
+ * 默克尔树证明
  * @dev These functions deal with verification of Merkle Trees proofs.
  *
  * The proofs can be generated using the JavaScript library
@@ -28,6 +29,8 @@ library MerkleProof {
         for (uint256 i = 0; i < proof.length; i++) {
             bytes32 proofElement = proof[i];
 
+            // what？ 这个顺序是怎么确定的？
+            // 对于无序的数据，这样排列可以，但是有序的数据，这样乱放前后位置可能会导致无法还原元原始数据。
             if (computedHash <= proofElement) {
                 // Hash(current computed hash + current element of the proof)
                 computedHash = keccak256(abi.encodePacked(computedHash, proofElement));
