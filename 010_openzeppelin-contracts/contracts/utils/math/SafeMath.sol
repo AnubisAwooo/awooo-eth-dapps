@@ -7,6 +7,8 @@ pragma solidity ^0.8.0;
 // because it relies on the compiler's built in overflow checks.
 
 /**
+ * 安全数学计算 不报错，但是要求自己检查结果
+ * 后面有报错的，必须要求 0.8.0 版本以上，通过编译器添加检查方式报错，代码里面看不到溢出检查
  * @dev Wrappers over Solidity's arithmetic operations.
  *
  * NOTE: `SafeMath` is no longer needed starting with Solidity 0.8. The compiler
