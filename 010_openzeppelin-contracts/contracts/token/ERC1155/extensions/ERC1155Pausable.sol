@@ -6,6 +6,7 @@ import "../ERC1155.sol";
 import "../../../security/Pausable.sol";
 
 /**
+ * ERC1155 可停止
  * @dev ERC1155 token with pausable token transfers, minting and burning.
  *
  * Useful for scenarios such as preventing trades until the end of an evaluation
