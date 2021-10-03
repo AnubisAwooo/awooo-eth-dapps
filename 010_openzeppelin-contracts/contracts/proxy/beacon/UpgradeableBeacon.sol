@@ -7,6 +7,7 @@ import "../../access/Ownable.sol";
 import "../../utils/Address.sol";
 
 /**
+ * 可升级的信标合约
  * @dev This contract is used in conjunction with one or more instances of {BeaconProxy} to determine their
  * implementation contract, which is where they will delegate all function calls.
  *
