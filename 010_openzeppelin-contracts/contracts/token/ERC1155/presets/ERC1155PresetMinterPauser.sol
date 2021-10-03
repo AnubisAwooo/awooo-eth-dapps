@@ -11,8 +11,11 @@ import "../../../utils/Context.sol";
 /**
  * @dev {ERC1155} token, including:
  *
+ *  - 持有者能销毁
  *  - ability for holders to burn (destroy) their tokens
+ *  - 矿工角色能挖矿
  *  - a minter role that allows for token minting (creation)
+ *  - 暂停角色能暂停
  *  - a pauser role that allows to stop all token transfers
  *
  * This contract uses {AccessControl} to lock permissioned functions using the
