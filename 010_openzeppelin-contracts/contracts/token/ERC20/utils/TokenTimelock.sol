@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "./SafeERC20.sol";
 
 /**
+ * token 持有者可以允许受益人在指定释放时间之后提提取。
  * @dev A token holder contract that will allow a beneficiary to extract the
  * tokens after a given release time.
  *
