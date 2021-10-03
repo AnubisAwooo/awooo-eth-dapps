@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "./IERC1820Implementer.sol";
 
 /**
+ * ERC1820实现者实现
  * @dev Implementation of the {IERC1820Implementer} interface.
  *
  * Contracts may inherit from this and call {_registerInterfaceForAddress} to
