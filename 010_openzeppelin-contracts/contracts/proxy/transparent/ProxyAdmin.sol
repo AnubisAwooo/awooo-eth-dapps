@@ -6,11 +6,13 @@ import "./TransparentUpgradeableProxy.sol";
 import "../../access/Ownable.sol";
 
 /**
+ * 这是一个辅助合约，被赋予 admin 权限才可以进行升级。
  * @dev This is an auxiliary contract meant to be assigned as the admin of a {TransparentUpgradeableProxy}. For an
  * explanation of why you would want to use this see the documentation for {TransparentUpgradeableProxy}.
  */
 contract ProxyAdmin is Ownable {
     /**
+     * 获取被代理的合约地址
      * @dev Returns the current implementation of `proxy`.
      *
      * Requirements:
@@ -26,6 +28,7 @@ contract ProxyAdmin is Ownable {
     }
 
     /**
+     * 获取 admin 地址
      * @dev Returns the current admin of `proxy`.
      *
      * Requirements:
@@ -41,6 +44,7 @@ contract ProxyAdmin is Ownable {
     }
 
     /**
+     * 设置 admin 地址
      * @dev Changes the admin of `proxy` to `newAdmin`.
      *
      * Requirements:
@@ -52,6 +56,7 @@ contract ProxyAdmin is Ownable {
     }
 
     /**
+     * 升级合约
      * @dev Upgrades `proxy` to `implementation`. See {TransparentUpgradeableProxy-upgradeTo}.
      *
      * Requirements:
@@ -63,6 +68,7 @@ contract ProxyAdmin is Ownable {
     }
 
     /**
+     * 升级并调用
      * @dev Upgrades `proxy` to `implementation` and calls a function on the new implementation. See
      * {TransparentUpgradeableProxy-upgradeToAndCall}.
      *
