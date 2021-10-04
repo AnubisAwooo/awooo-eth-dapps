@@ -4,17 +4,24 @@
 
 pragma solidity ^0.4.24;
 
+// 部署于 2018-08-03 和 USDT 相比慢了 9 个月
+// https://cn.etherscan.com/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48
+
 // File: zos-lib/contracts/upgradeability/Proxy.sol
 
 /**
+ * 代理
  * @title Proxy
+ * 实现其他合约的委托调用，正确转发并返回结果，如果出错会冒泡传递。
  * @dev Implements delegation of calls to other contracts, with proper
  * forwarding of return values and bubbling of failures.
+ * 如果定义了 fallback 函数来委托所有的函数调用，目标合约来自抽象方法 _implementation
  * It defines a fallback function that delegates all calls to the address
  * returned by the abstract _implementation() internal function.
  */
 contract Proxy {
     /**
+     * fallback 函数 调用 _fallback
      * @dev Fallback function.
      * Implemented entirely in `_fallback`.
      */
@@ -23,23 +30,28 @@ contract Proxy {
     }
 
     /**
+     * 返回被代理的合约
      * @return The Address of the implementation.
      */
     function _implementation() internal view returns (address);
 
     /**
+     * 委托执行目标合约
      * @dev Delegates execution to an implementation contract.
+     * 这是一个低层次函数，当前函数不返回值。将返回外部函数调用的结果。
      * This is a low level function that doesn't return to its internal call site.
      * It will return to the external caller whatever the implementation returns.
      * @param implementation Address to delegate.
      */
     function _delegate(address implementation) internal {
         assembly {
+            // 复制消息数据。全面用内联汇编的方式控制内存，因为不用返回代码？？
             // Copy msg.data. We take full control of memory in this inline assembly
             // block because it will not return to Solidity code. We overwrite the
             // Solidity scratch pad at memory position 0.
             calldatacopy(0, 0, calldatasize)
 
+            // 委托调用
             // Call the implementation.
             // out and outsize are 0 because we don't know the size yet.
             let result := delegatecall(
@@ -51,6 +63,7 @@ contract Proxy {
                 0
             )
 
+            // 复制返回结果
             // Copy the returned data.
             returndatacopy(0, 0, returndatasize)
 
@@ -66,6 +79,7 @@ contract Proxy {
     }
 
     /**
+     * 在 fallback 函数委托调用之前调用。可在子合约中重写添加功能，重写必须调用父类方法。
      * @dev Function that is run as the first thing in the fallback function.
      * Can be redefined in derived contracts to add functionality.
      * Redefinitions must call super._willFallback().
@@ -73,18 +87,20 @@ contract Proxy {
     function _willFallback() internal {}
 
     /**
+     * fallback 函数实现
      * @dev fallback implementation.
      * Extracted to enable manual triggering.
      */
     function _fallback() internal {
-        _willFallback();
-        _delegate(_implementation());
+        _willFallback(); // 执行调用前方法
+        _delegate(_implementation()); // 委托出去
     }
 }
 
 // File: openzeppelin-solidity/contracts/AddressUtils.sol
 
 /**
+ * 地址工具库 判断是不是合约
  * Utility library of inline functions on addresses
  */
 library AddressUtils {
@@ -114,19 +130,24 @@ library AddressUtils {
 // File: zos-lib/contracts/upgradeability/UpgradeabilityProxy.sol
 
 /**
+ * 可升级的代理
  * @title UpgradeabilityProxy
+ * 本合约实现代理，允许改变被代理的合约地址。
  * @dev This contract implements a proxy that allows to change the
  * implementation address to which it will delegate.
+ * 这样的改变被称为代理升级。
  * Such a change is called an implementation upgrade.
  */
 contract UpgradeabilityProxy is Proxy {
     /**
+     * 代理升级事件
      * @dev Emitted when the implementation is upgraded.
      * @param implementation Address of the new implementation.
      */
     event Upgraded(address implementation);
 
     /**
+     * 当前代理合约地址的存储槽。
      * @dev Storage slot with the address of the current implementation.
      * This is the keccak-256 hash of "org.zeppelinos.proxy.implementation", and is
      * validated in the constructor.
@@ -135,6 +156,7 @@ contract UpgradeabilityProxy is Proxy {
         0x7050c9e0f4ca769c69bd3a8ef740bc37934f8e2c036e5a723fd8ee048ed3f8c3;
 
     /**
+     * 构造器 验证存储槽 设置代理合约地址
      * @dev Contract constructor.
      * @param _implementation Address of the initial implementation.
      */
@@ -148,6 +170,7 @@ contract UpgradeabilityProxy is Proxy {
     }
 
     /**
+     * 获取代理合约地址
      * @dev Returns the current implementation.
      * @return Address of the current implementation
      */
@@ -159,21 +182,23 @@ contract UpgradeabilityProxy is Proxy {
     }
 
     /**
+     * 更改被代理的合约
      * @dev Upgrades the proxy to a new implementation.
      * @param newImplementation Address of the new implementation.
      */
     function _upgradeTo(address newImplementation) internal {
         _setImplementation(newImplementation);
-        emit Upgraded(newImplementation);
+        emit Upgraded(newImplementation); // 触发升级事件
     }
 
     /**
+     * 设置被代理的合约地址
      * @dev Sets the implementation address of the proxy.
      * @param newImplementation Address of the new implementation.
      */
     function _setImplementation(address newImplementation) private {
         require(
-            AddressUtils.isContract(newImplementation),
+            AddressUtils.isContract(newImplementation), // 检查必须是合约地址
             "Cannot set a proxy implementation to a non-contract address"
         );
 
@@ -188,6 +213,7 @@ contract UpgradeabilityProxy is Proxy {
 // File: zos-lib/contracts/upgradeability/AdminUpgradeabilityProxy.sol
 
 /**
+ * admin 控制升级代理
  * @title AdminUpgradeabilityProxy
  * @dev This contract combines an upgradeability proxy with an authorization
  * mechanism for administrative tasks.
@@ -201,7 +227,7 @@ contract AdminUpgradeabilityProxy is UpgradeabilityProxy {
      * @param previousAdmin Address of the previous admin.
      * @param newAdmin Address of the new admin.
      */
-    event AdminChanged(address previousAdmin, address newAdmin);
+    event AdminChanged(address previousAdmin, address newAdmin); // admin 角色修改事件
 
     /**
      * @dev Storage slot with the admin of the contract.
@@ -212,6 +238,7 @@ contract AdminUpgradeabilityProxy is UpgradeabilityProxy {
         0x10d6a54a4754c8869d6886b5f5d7fbfa5b4522237ea5c60d11bc4e7a1ff9390b;
 
     /**
+     * 修改器 要求调用者必须是 admin 角色，如果是 admin 角色，就执行目标代码，不是则去代理合约执行
      * @dev Modifier to check whether the `msg.sender` is the admin.
      * If it is, it will run the function. Otherwise, it will delegate the call
      * to the implementation.
@@ -220,7 +247,7 @@ contract AdminUpgradeabilityProxy is UpgradeabilityProxy {
         if (msg.sender == _admin()) {
             _;
         } else {
-            _fallback();
+            _fallback(); // 非 admin 角色调用只走 _fallback 方法
         }
     }
 
@@ -235,10 +262,11 @@ contract AdminUpgradeabilityProxy is UpgradeabilityProxy {
     {
         assert(ADMIN_SLOT == keccak256("org.zeppelinos.proxy.admin"));
 
-        _setAdmin(msg.sender);
+        _setAdmin(msg.sender); // 设置部署者拥有 admin 权限
     }
 
     /**
+     * 获得 admin 地址 外部函数 只读 仅限 admin 权限调用
      * @return The address of the proxy admin.
      */
     function admin() external view ifAdmin returns (address) {
@@ -246,6 +274,8 @@ contract AdminUpgradeabilityProxy is UpgradeabilityProxy {
     }
 
     /**
+     * 获取被代理的合约地址 外部函数 只读 仅限 admin 角色调用
+     * what? 这里有个问题，明明在 _fallback 方法里面需要调用这个方法，那么调用的时候走不走修改器？没问题了，我记错了人家调用的是没有修改器的 _implementation 方法
      * @return The address of the implementation.
      */
     function implementation() external view ifAdmin returns (address) {
@@ -253,6 +283,7 @@ contract AdminUpgradeabilityProxy is UpgradeabilityProxy {
     }
 
     /**
+     * 修改 admin 角色。外部函数 仅限 admin 角色
      * @dev Changes the admin of the proxy.
      * Only the current admin can call this function.
      * @param newAdmin Address to transfer proxy administration to.
@@ -262,11 +293,12 @@ contract AdminUpgradeabilityProxy is UpgradeabilityProxy {
             newAdmin != address(0),
             "Cannot change the admin of a proxy to the zero address"
         );
-        emit AdminChanged(_admin(), newAdmin);
+        emit AdminChanged(_admin(), newAdmin); // 触发修改 admin 角色事件
         _setAdmin(newAdmin);
     }
 
     /**
+     * 升级被代理合约 外部函数 仅限 admin 角色
      * @dev Upgrade the backing implementation of the proxy.
      * Only the admin can call this function.
      * @param newImplementation Address of the new implementation.
@@ -276,6 +308,7 @@ contract AdminUpgradeabilityProxy is UpgradeabilityProxy {
     }
 
     /**
+     * 升级并且调用
      * @dev Upgrade the backing implementation of the proxy and call a function
      * on the new implementation.
      * This is useful to initialize the proxied contract.
@@ -321,7 +354,7 @@ contract AdminUpgradeabilityProxy is UpgradeabilityProxy {
      */
     function _willFallback() internal {
         require(
-            msg.sender != _admin(),
+            msg.sender != _admin(), // admin 角色不能够调用 fallback 方法
             "Cannot call fallback function from the proxy admin"
         );
         super._willFallback();
@@ -354,6 +387,7 @@ contract AdminUpgradeabilityProxy is UpgradeabilityProxy {
 pragma solidity ^0.4.24;
 
 /**
+ * 部署合约
  * @title FiatTokenProxy
  * @dev This contract proxies FiatToken calls and enables FiatToken upgrades
  */
