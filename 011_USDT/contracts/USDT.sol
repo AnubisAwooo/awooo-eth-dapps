@@ -6,6 +6,11 @@ pragma solidity ^0.4.17;
 
 // 以太坊主网部署地址 2017-11-28 部署
 // https://cn.etherscan.com/address/0xdac17f958d2ee523a2206206994597c13d831ec7
+// 审计 https://callisto.network/tether-token-usdt-security-audit/
+// 审计说有 3 个小问题，4 个特权
+// 特权问题 1.暂停 2.黑名单 3.手续费 4.升级
+// 小问题 1.给空地址转账 2.发行销毁不触发事件 3.ERC20 接口设计问题 2 次提现问题
+
 // 可以控制中止
 // 可以弃用升级
 // 可以设置手续费
