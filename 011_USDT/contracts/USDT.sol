@@ -4,6 +4,12 @@
 // 2017 年就提交了，也是那时候我注意到比特币的时候，现在 4 年过去了
 pragma solidity ^0.4.17;
 
+// 可以控制中止
+// 可以弃用升级
+// 可以设置手续费
+// 可以销毁发行
+// 可以设置黑名单
+
 /**
  * 安全的数学运算 library
  * @title SafeMath
@@ -421,6 +427,7 @@ contract TetherToken is Pausable, StandardToken, BlackList {
         if (deprecated) {
             // 如果被弃用，就转移到升级合约调用
             return
+                // 这都把参数拆开了，那个参数长度的验证还有效吗？？
                 UpgradedStandardToken(upgradedAddress).transferByLegacy(
                     msg.sender,
                     _to,
