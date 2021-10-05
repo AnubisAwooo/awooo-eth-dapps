@@ -4,6 +4,8 @@
 
 pragma solidity ^0.4.24;
 
+// 第 1 版本被代理的合约 https://cn.etherscan.com/address/0x0882477e7895bdc5cea7cb1552ed914ab157fe56
+
 // File: contracts/Ownable.sol
 
 /**
