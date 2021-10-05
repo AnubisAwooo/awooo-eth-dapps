@@ -6,6 +6,8 @@ pragma solidity 0.4.24;
 
 // File: openzeppelin-solidity/contracts/token/ERC20/ERC20Basic.sol
 
+// 部署于 2018-11-24 https://cn.etherscan.com/address/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599
+
 /**
  * @title ERC20Basic
  * @dev Simpler version of ERC20 interface
