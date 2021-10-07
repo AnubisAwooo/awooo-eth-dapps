@@ -195,3 +195,11 @@ instance.send(web3.toWei(1, "ether")).then(function(result) {
 # 调试交易
 truffle debug <transaction hash>
 ```
+
+## 计划要学习的合约
+
+-   Compound 看了一半看不下去了
+-   AAVE 也是借贷的
+-   Balancer 去中性化交易
+-   Uniswap 去中性化交易
+-   Yearn DeFi 聚合器项目
